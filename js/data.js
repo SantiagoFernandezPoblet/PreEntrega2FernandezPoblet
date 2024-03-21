@@ -12,17 +12,17 @@ const catalogo = [
     {
         Tipo: "Verdura",
         Producto: "Remolacha",
-        Precio: 1100,
+        Precio: 1600,
     },
     {
         Tipo: "Fruta",
         Producto: "Kiwi",
-        Precio: 1700,
+        Precio: 1800,
     },
     {
         Tipo: "Fruta",
         Producto: "Frutilla",
-        Precio: 1600,
+        Precio: 1500,
     },
     {
         Tipo: "Fruta",

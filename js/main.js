@@ -1,135 +1,112 @@
-/* alert("Bienvenido a la calculadora de cuotas.");
+let FoV = prompt("Ingrese el tipo de producto. (Verdura o Fruta)");
+let precioMax = prompt("Ingrese el precio máximo.");
+let precioMin = prompt("Ingrese el precio mínimo");
 
-let entrada = prompt("¿Desea ingresar al sistema? Ingrese NO para salir del sistema");
-
-while(entrada != "NO"){
-    let monto = Number(prompt("Ingrese el monto a pagar"));
-    let cantidadCuotas = Number(prompt("¿Desea pagar en 1, 3 o 6 cuotas sin interés, o en 12 o 18 cuotas fijas con un recargo del 7%? (Ingrese el número de cuotas)"));
-
-    function cuotasSinInteres (monto, cantidadCuotas){
-        cuotas = monto/cantidadCuotas;
-    };
-
-    function cuotasFijas (monto, cantidadCuotas){
-        cuotas = (monto + 7*monto/100)/cantidadCuotas;
-    };
-
-    switch(cantidadCuotas){
-        case 1:
-            cuotasSinInteres(monto, cantidadCuotas);
-            break;
-        case 3:
-            cuotasSinInteres(monto, cantidadCuotas);
-            break;
-        case 6:
-            cuotasSinInteres(monto, cantidadCuotas);
-            break;
-        case 12:
-            cuotasFijas(monto, cantidadCuotas);
-            break;
-        case 18:
-            cuotasFijas(monto, cantidadCuotas);
-            break;
-        default:
-            alert("Seleccione entre las cuotas disponibles.");
-            continue;
-    };
-
-    alert("Pagará $" + monto + " en " + cantidadCuotas + " cuotas de $" + cuotas.toFixed(2) + " cada una.");
-
-    entrada = prompt("¿Desea volver a la calculadora? Ingrese NO para salir.");
-}; */
-
-
-/* 
-function mostrarCatalogo(cosas){
-    console.table(cosas);
-} */
-
-function mostrarCatalogo(elemento){
-    elemento.forEach(catalogo => {
-        console.log(catalogo.Tipo + " - " + catalogo.Producto + " - " + catalogo.Precio);
-    }
-    );
-}
-
-
-
-let FoV = "Verdura";
 
 const busqueda = {
     Type: FoV,
-    Product: "Lechuga",
-    Price: 1000,
+    PrecioMaximo: precioMax,
+    PrecioMinimo: precioMin,
 }
-/* 
-function filtrarTipo(Tipo){
+
+function filtrarTipo(item){
     if(busqueda.Type){
-        return catalogo.Tipo === busqueda.Type;
+        return item.Tipo === busqueda.Type;
     }
-    return Tipo;
-} */
+    return item;
+}
+
+function filtrarPrecioMax(item){
+    if(busqueda.PrecioMaximo){
+        return item.Precio <= busqueda.PrecioMaximo;
+    }
+    return item;
+}
+
+function filtrarPrecioMin(item){
+    if(busqueda.PrecioMinimo){
+        return item.Precio >= busqueda.PrecioMinimo;
+    }
+    return item;
+}
+
 
 function filtrarCatalogo(){
-    const resultado = catalogo.filter((item)=>{
-        if (busqueda.Type>0){
-            return catalogo.Tipo === busqueda.Type
-        }
-        return item
-    });
+    const resultado = catalogo.filter(filtrarTipo).filter(filtrarPrecioMax).filter(filtrarPrecioMin);
     if(resultado.length>0){
-        mostrarCatalogo(resultado);
+        console.table(resultado);
     }else {
-        console.log("Sin resultados");
+        console.log("Ingrese filtros dentro de los parámetros.");
     }
 }
 
-filtrarCatalogo();
+console.table(catalogo); //catálogo original
+
+console.log("------------------------------------------");
+
+filtrarCatalogo(); //trae el catálogo filtrado
 
 
+// Agrego métodos para ordenar la el catálogo, no lo relacioné bien con el catálogo original porque volvía demasiado denso el utilizar la página mediante prompts, para la siguiente entrega entiendo que ya es con DOM así que podría agregar esta función de manera práctica (se filtra y ordena independientemente de lo que haga el resto de funciones)
 
+console.log("------------------------------------------");
 
+//ordena de menor a mayor precio
 
-
-
-
-
-
-
-
-
-
-
-/* console.table(catalogo);
-
-let elemento = prompt("Seleccione un producto de la lista para agregarlo al carrito");
-
-const busqueda = {
-    //Type: type,
-    Product: elemento,
-    //Price: price,
+function menorMayor(lista){
+    lista.sort((a, b) => a.Precio - b.Precio);
+    console.table(lista);
 }
 
-function agregarProducto(item){
-    if (busqueda.Product === catalogo.Producto){
-        console.log(existe);
-    }
+menorMayor(catalogo);
+
+console.log("------------------------------------------");
+
+//ordena de mayor a menor precio
+
+function mayorMenor(lista){
+    lista.sort((a, b) => b.Precio - a.Precio);
+    console.table(lista);
 }
 
-function filtrarAutos(){
-    const resultado = catalogo.filter((item)=> {
-        if(Producto){
-            return auto.marca === marca
-        }
-        return auto;
-    });
-    if(resultado.length>0){
-        mostrarAutos(resultado)
-    }else {
-        console.error('sin resultados')
-    }
-}
+mayorMenor(catalogo);
 
+console.log("------------------------------------------");
 
+// No supe generar una funcion que agregue a un array los productos para usar de carrito de compras, dejé esto abajo para simular esa función hasta poder solucionarlo
 
-agregarProducto() */
+// Mi problema es que no supe agarrar info de un prompt para seleccionar un objeto del array catalogo para agregarlo al array carrito que generé como array vacío (lo borré para mayor prolijidad), ¿Como podría hacer para tomar un objeto entero solo teniendo el nombre del producto por ejemplo?
+
+let monto = Number(prompt("Ingrese el monto a pagar"));
+let cantidadCuotas = Number(prompt("¿Desea pagar en 1, 3 o 6 cuotas sin interés, o en 12 o 18 cuotas fijas con un recargo del 7%? (Ingrese el número de cuotas)"));
+
+function cuotasSinInteres (monto, cantidadCuotas){
+    cuotas = monto/cantidadCuotas;
+};
+
+function cuotasFijas (monto, cantidadCuotas){
+    cuotas = (monto + 7*monto/100)/cantidadCuotas;
+};
+
+switch(cantidadCuotas){
+    case 1:
+        cuotasSinInteres(monto, cantidadCuotas);
+        break;
+    case 3:
+        cuotasSinInteres(monto, cantidadCuotas);
+        break;
+    case 6:
+        cuotasSinInteres(monto, cantidadCuotas);
+        break;
+    case 12:
+        cuotasFijas(monto, cantidadCuotas);
+        break;
+    case 18:
+        cuotasFijas(monto, cantidadCuotas);
+        break;
+    default:
+        alert("Seleccione entre las cuotas disponibles.");
+};
+
+alert("Pagará $" + monto + " en " + cantidadCuotas + " cuotas de $" + cuotas.toFixed(2) + " cada una.");
+console.log("Pagará $" + monto + " en " + cantidadCuotas + " cuotas de $" + cuotas.toFixed(2) + " cada una.");
