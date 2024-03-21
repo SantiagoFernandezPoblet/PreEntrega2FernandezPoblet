@@ -30,5 +30,3 @@ const catalogo = [
         Precio: 800,
     },
 ];
-
-let carrito = [];

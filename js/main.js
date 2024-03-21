@@ -40,24 +40,96 @@ while(entrada != "NO"){
     entrada = prompt("¿Desea volver a la calculadora? Ingrese NO para salir.");
 }; */
 
-console.table(catalogo);
+
+/* 
+function mostrarCatalogo(cosas){
+    console.table(cosas);
+} */
+
+function mostrarCatalogo(elemento){
+    elemento.forEach(catalogo => {
+        console.log(catalogo.Tipo + " - " + catalogo.Producto + " - " + catalogo.Precio);
+    }
+    );
+}
+
+
+
+let FoV = "Verdura";
+
+const busqueda = {
+    Type: FoV,
+    Product: "Lechuga",
+    Price: 1000,
+}
+/* 
+function filtrarTipo(Tipo){
+    if(busqueda.Type){
+        return catalogo.Tipo === busqueda.Type;
+    }
+    return Tipo;
+} */
+
+function filtrarCatalogo(){
+    const resultado = catalogo.filter((item)=>{
+        if (busqueda.Type>0){
+            return catalogo.Tipo === busqueda.Type
+        }
+        return item
+    });
+    if(resultado.length>0){
+        mostrarCatalogo(resultado);
+    }else {
+        console.log("Sin resultados");
+    }
+}
+
+filtrarCatalogo();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* console.table(catalogo);
 
 let elemento = prompt("Seleccione un producto de la lista para agregarlo al carrito");
 
-let busqueda = {
+const busqueda = {
     //Type: type,
     Product: elemento,
     //Price: price,
 }
 
-function comprarProducto(item){
-    carrito.push(item);
+function agregarProducto(item){
+    if (busqueda.Product === catalogo.Producto){
+        console.log(existe);
+    }
 }
 
-if (busqueda.Product === catalogo.Producto){
-    comprarProducto(busqueda.Product);
+function filtrarAutos(){
+    const resultado = catalogo.filter((item)=> {
+        if(Producto){
+            return auto.marca === marca
+        }
+        return auto;
+    });
+    if(resultado.length>0){
+        mostrarAutos(resultado)
+    }else {
+        console.error('sin resultados')
+    }
 }
 
-console.log("-------------------");
 
-console.log(carrito);
+
+agregarProducto() */
